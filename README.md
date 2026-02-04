@@ -1,4 +1,4 @@
-# 🐦 tori-log
+# 🐦 torilog
 
 ## 概要
 
@@ -15,7 +15,7 @@
 
 - [ ] 場所の記録 (EXIFデータの利用)
 - [ ] 鳥の名前の記録 (テキスト入力・タグ付け)
-- [ ] 検索 (種別、場所、日付)
+- [ ] 検索・並び替え (種別、場所、日付)
 
 ### Could (時間があれば)
 
@@ -24,9 +24,7 @@
 
 ## 画面構成
 
-- メイン画面
-  - 投稿一覧表示
-  - 投稿フォーム
+![](torilog.excalidraw.svg)
 
 ## データ構造
 
@@ -51,14 +49,13 @@ type Post = {
 
 ## APIエンドポイント
 
-（REST APIの設計）
+```
+GET /api/posts
+POST /api/posts
+```
 
 ## 技術選定
 
-- フレームワーク：Hono + React
-- スタイリング：（選択）
-- データベース：（選択）
-
-## 備考
-
-（その他、気になる点や挑戦したいこと）
+- フレームワーク: Hono + React
+- スタイリング: Tailwind CSS
+- データベース: SQLite-backed Durable Object Storage
