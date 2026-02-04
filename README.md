@@ -61,3 +61,11 @@ POST /api/posts
 - フレームワーク: Hono + React
 - スタイリング: Tailwind CSS
 - データベース: SQLite-backed Durable Object Storage
+
+## 備考
+
+- EXIF周りの処理のライブラリ候補
+  - exifreader … 小ささを売りにしている、採用予定
+  - sharp … 依存関係が少ないらしい、画像処理全般
+  - exif-reader … 簡単らしい、TS対応
+  - exiftool-vendored … 有名なexiftoolのラッパー、過剰かも
