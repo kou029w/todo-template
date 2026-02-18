@@ -21,6 +21,25 @@ db.exec(`
 
 const sql = db.createTagStore();
 
+async function getPosts(): Promise<Post[]> {
+  const data = sql.all`
+    SELECT id, image, birdName, latitude, longitude, takenAt, createdAt
+      FROM posts
+  `;
+
+  return data.map((row) => ({
+    id: row.id,
+    image: row.image,
+    birdName: row.birdName,
+    location:
+      row.latitude !== null && row.longitude !== null
+        ? { latitude: row.latitude, longitude: row.longitude }
+        : undefined,
+    takenAt: row.takenAt ?? undefined,
+    createdAt: row.createdAt,
+  })) as Post[];
+}
+
 async function uploadPost(post: Omit<Post, "id" | "createdAt">): Promise<void> {
   sql.run`
     INSERT INTO posts (image, birdName, latitude, longitude, takenAt)
@@ -37,6 +56,11 @@ const app = new Hono();
 
 app.use("*", serveStatic({ root: "../web/dist" }));
 app.use("/api/*", cors());
+
+app.get("/api/posts", async (c) => {
+  const posts = await getPosts();
+  return c.json(posts);
+});
 
 app.post("/api/posts", async (c) => {
   const post = await c.req.json<Omit<Post, "id" | "createdAt">>();
