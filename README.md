@@ -48,5 +48,5 @@ POST /api/posts
 
 - フレームワーク: Hono + React
 - スタイリング: Tailwind CSS
-- データベース: SQLite-backed Durable Object Storage
+- データベース: SQLite (Node.js native)
 - EXIF処理: exifreader
