@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "torilog",
+  "main": "api/src/index.ts",
+  "assets": {
+    "directory": "web/dist"
+  },
+  "compatibility_date": "2025-10-08",
+  "upload_source_maps": true,
+  "migrations": [
+    {
+      "new_sqlite_classes": ["Storage"],
+      "tag": "v1"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "Storage",
+        "name": "STORAGE"
+      }
+    ]
+  },
+  "observability": {
+    "enabled": true
+  }
+}

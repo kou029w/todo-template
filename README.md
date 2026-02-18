@@ -1,5 +1,9 @@
 # 🐦 torilog
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/kou029w/todo-template/tree/torilog-cloudflare)
+
+※ 画像が大きいとエラーになる不具合あり
+
 ## 概要
 
 野鳥の観察記録を管理できるWebアプリ。
@@ -48,5 +52,5 @@ POST /api/posts
 
 - フレームワーク: Hono + React
 - スタイリング: Tailwind CSS
-- データベース: SQLite-backed Durable Object Storage
+- データベース: SQLite-backed Durable Object Storage … 画像をアップロードすると SQLITE_TOOBIG エラーになるため注意
 - EXIF処理: exifreader

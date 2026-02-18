@@ -5,6 +5,11 @@
   "scripts": {
     "dev": "pnpm -r dev",
     "build": "pnpm -r build",
-    "start": "pnpm -r start"
+    "start": "pnpm -r start",
+    "type-gen": "wrangler types",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.66.0"
   }
 }
