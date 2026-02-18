@@ -1,3 +1,4 @@
+import ExifReader from "exifreader";
 import useSWR, { mutate } from "swr";
 import type { Post } from "../../api/src/types";
 
@@ -39,9 +40,11 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     };
     fileReader.readAsDataURL(imageFile);
   });
+
+  const imageTags = await ExifReader.load(imageFile);
   const location = {
-    latitude: parseFloat(formData.get("latitude") as string),
-    longitude: parseFloat(formData.get("longitude") as string),
+    latitude: parseFloat(imageTags.GPSLatitude?.description ?? "NaN"),
+    longitude: parseFloat(imageTags.GPSLongitude?.description ?? "NaN"),
   };
   const post: Omit<Post, "id" | "createdAt"> = {
     image,
@@ -50,7 +53,8 @@ async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
       isNaN(location.latitude) || isNaN(location.longitude)
         ? undefined
         : location,
-    takenAt: formData.get("takenAt") as string | undefined,
+    takenAt: imageTags.DateTimeOriginal?.description // ex. "2024:01:01 12:00:00"
+      .replace(/^(\d+):(\d+):(\d+) /, "$1-$2-$3T"), // ISO 8601 format "2024-01-01T12:00:00"
   };
   await uploadPost(post);
   form.reset();
@@ -88,21 +92,6 @@ export default function App() {
       <form onSubmit={onSubmit}>
         <input type="file" name="image" required />
         <input type="text" name="birdName" required placeholder="Bird Name" />
-        <input
-          hidden
-          type="text"
-          name="latitude"
-          pattern="[0-9]*[.][0-9]*"
-          placeholder="Latitude"
-        />
-        <input
-          hidden
-          type="text"
-          name="longitude"
-          pattern="[0-9]*[.][0-9]*"
-          placeholder="Longitude"
-        />
-        <input hidden type="datetime-local" name="takenAt" />
         <label>
           📷
           <button type="submit">Submit</button>
