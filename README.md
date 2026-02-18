@@ -8,7 +8,7 @@
 
 ### Must (必須)
 
-- [ ] 写真投稿 (画像ファイルアップロード)
+- [x] 写真投稿 (画像ファイルアップロード)
 - [ ] 投稿一覧表示 (画像の表示)
 
 ### Should (重要)
@@ -30,24 +30,7 @@
 
 ## データ構造
 
-```ts
-type Post = {
-  id: string;
-  // 画像URL
-  image: string;
-  // 鳥の名前
-  birdName: string;
-  // 撮影場所
-  location?: {
-    latitude: number;
-    longitude: number;
-  };
-  // 撮影日時 (ISO 8601形式)
-  takenAt?: string;
-  // 投稿日時 (ISO 8601形式)
-  createdAt: string;
-};
-```
+[types.ts](./api/src/types.ts)に定義。
 
 ## APIエンドポイント
 
